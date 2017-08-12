@@ -1,15 +1,21 @@
 /**
  * 順位表取得サービス
- * Yahoo スポーツから読み込み
  */
-function Standings() {
+function Standings(compe) {
+    var config = require("/config").config;
 	var util = require("util/util").util;
     var style = require("util/style").style;
     var XHR = require("util/xhr");
 	var self = {};
 	self.load = load;
 
-    var standingsUrl = "http://sub0000499082.hmk-temp.com/redsmylife/standings.json?season=" + util.getCurrentSeason();
+    var standingsUrl = config.standingsUrl + "?season=" + util.getCurrentSeason() + "&teamId=" + config.teamId;
+    Ti.API.info('★URL=' + standingsUrl);
+    if (!compe) {
+        compe = "J";
+    }
+    standingsUrl += "&compe=" + compe;
+    
 	/**
 	 * 自前サーバからJSONを読み込んで表示する
 	 */
@@ -25,16 +31,16 @@ function Standings() {
             //TODO return;
 		}
         if(sort) {
-            Ti.App.Analytics.trackPageview('/standings?sort=' + sort);
+            Ti.App.Analytics.trackPageview('/standings?compe=' + compe + '&sort=' + sort);
         } else {
-            Ti.App.Analytics.trackPageview('/standings');
+            Ti.App.Analytics.trackPageview('/standings?compe=' + compe);
         }
-
         var xhr = new XHR();
         // Normal plain old request with a 5mins caching
         if(sort){
             standingsUrl += "&sort=" + sort;
         }
+        Ti.API.info('URL=' + standingsUrl);
         xhr.get(standingsUrl, onSuccessCallback, onErrorCallback, { ttl: 1 });
         function onSuccessCallback(e) {
             // Handle your request in here
@@ -59,7 +65,12 @@ function Standings() {
                 for(i=0; i<dataList.length; i++) {
                     var ranking = dataList[i];
                     var rank = ranking.rank;
+                    var teamId = ranking.team_id;
                     var team = util.getSimpleTeamName(ranking.team_name);
+                    if (!team){
+                        team = ranking.team_name;
+                    }
+                    var teamFull = ranking.team_name;
                     var point = ranking.point;
                     var win = ranking.win;
                     var draw = ranking.draw;
@@ -71,7 +82,9 @@ function Standings() {
                     
                     var standingsData = {
                         rank: rank
+                        ,teamId: teamId
                         ,team: team
+                        ,teamFull: teamFull
                         ,point: point
                         ,win: win
                         ,draw: draw
@@ -88,7 +101,7 @@ function Standings() {
                 callback.fail(style.common.loadingFailMsg);
             } finally {
                 var after = new Date();
-                Ti.API.info("Standings.js#load() 処理時間★" 
+                Ti.API.info("Standings.js#load() 処理時間★　" 
                     + (after.getTime()-before.getTime())/1000.0 + "秒");
             }
         };

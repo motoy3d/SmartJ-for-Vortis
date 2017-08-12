@@ -2,18 +2,41 @@ exports.config = {
     teamId: 'vortis'
     ,hashtag: 'vortis'
     ,teamName: '徳島'
+    ,appName: '徳島ヴォルティス'
     ,appName: 'スマートJ for 徳島ヴォルティス'
     ,iPhoneAppUrl: 'https://itunes.apple.com/jp/app/id929041403?l=ja&ls=1&mt=8'
     ,androidAppUrl: 'https://play.google.com/store/apps/details?id=smartj.vortis'
+    ,backgroundColor: 'black'
+	,visitedBgColor : '#457'
+    ,mainTextColor: 'white'
     ,color: '#0000af'
     ,tintColor: 'white'
+    ,buttonBarColor: '#0000af'
+    ,standingsBgcolor: '#0000af'
+    ,standingsTeamFontColor: 'white'
+    ,resultsDetailBtnBgColorActive: '#333'
+    ,resultsDetailBtnColorActive: 'white'
+    ,resultsDetailBtnBgColorInactive: '#202020'
+    ,resultsDetailBtnColorInactive: '#444'
     ,dbName: 'smartj.vortis'
+    //URLベース
+    ,urlBase: 'https://smartj.mobi/redsmylife/'
     //ニュースのソースURL
-    ,feedUrlBase: 'http://sub0000499082.hmk-temp.com/redsmylife/news.json'
+    ,feedUrlBase: 'https://smartj.mobi/redsmylife/news.json'
     //日程・結果のソースURL
-    ,resultsUrl: "http://sub0000499082.hmk-temp.com/redsmylife/results.json?teamId=vortis&season="
+    ,resultsUrl: "https://smartj.mobi/redsmylife/results.json?teamId=vortis&season="
+    //順位表のソースURL
+    ,standingsUrl: 'https://smartj.mobi/redsmylife/standings.json'
     //設定、メッセージのソースURL
-    ,messageUrl: "http://sub0000499082.hmk-temp.com/redsmylife/config.json?teamId=vortis"
+    ,messageUrl: "https://smartj.mobi/redsmylife/config.json?teamId=vortis"
+    //動画のソースURL
+    ,videoUrl: "https://smartj.mobi/redsmylife/video.json?teamId=vortis"
+    //報告URL
+    ,reportUrl: "https://smartj.mobi/redsmylife/report.json?teamId=vortis"
+    //利用規約URL
+    ,rulesUrl: "https://smartj.mobi/redsmylife/rules.jsp?appName="
+    //開発元メールアドレス
+    ,developerMail: "motoy3d+smartj@gmail.com"
     ,newsEntriesPerPage: 50
     ,googleAnalyticsTrackingId: 'UA-30928840-1'
     //nend(iPhone)
